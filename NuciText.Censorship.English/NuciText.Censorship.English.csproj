@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>NuciText.Censorship.English</RootNamespace>
+    <AssemblyName>NuciText.Censorship.English</AssemblyName>
+    <Version>1.0.0</Version>
+    <Description>English text censorship filter for NuciText.Censorship. Replaces bad words and URLs with asterisks.</Description>
+    <Authors>Horațiu Mlendea</Authors>
+    <Copyright>Copyright 2026 © Horațiu Mlendea</Copyright>
+    <RepositoryUrl>https://github.com/hmlendea/nucitext.censorship.english</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <PackageTags>text;censorship;filter;english;nlp;nucitext</PackageTags>
+    <IsPackable>true</IsPackable>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Data/bad.txt" />
+    <EmbeddedResource Include="Data/hosts.txt" />
+    <EmbeddedResource Include="Data/tlds.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NuciText.Censorship" Version="1.0.0" />
+  </ItemGroup>
+
+</Project>
