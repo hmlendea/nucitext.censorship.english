@@ -12,7 +12,7 @@ An English text censorship filter for [NuciText.Censorship](https://github.com/h
 - Replaces offensive English words with `****`
 - Replaces known unwanted or malicious domain names with `****`
 - Case-insensitive matching
-- Word-boundary aware — avoids false positives from partial word matches
+- Word-boundary aware, avoiding false positives from partial word matches
 
 ## 🚀 Usage
 
@@ -74,11 +74,17 @@ dotnet pack NuciText.Censorship.English -c Release
 ## 🤝 Contributing
 
 Contributions are welcome. Please:
-- Keep changes cross-platform
+- Keep the changes cross-platform
 - Keep the existing public contract intact unless a breaking change is intentional
-- Keep pull requests focused and consistent with the existing code style
-- Update documentation when behaviour changes
+- Keep the pull requests focused and consistent with the existing code style
+- Update the documentation when behaviour changes
 - Add unit tests for any new or changed functionality
+
+## 💝 Support
+
+Found a bug or have a suggestion? [Open an issue](https://github.com/hmlendea/nucitext.censorship.english/issues)!
+
+If you find this project useful, consider [funding it](https://hmlendea.go.ro/funding) or giving a star on GitHub!
 
 ## 🔗 Related Projects
 
@@ -86,4 +92,5 @@ Contributions are welcome. Please:
 
 ## 📄 Licence
 
-This project is licensed under the [GNU General Public Licence v3](https://gnu.org/licenses/gpl-3.0) or later.
+Licensed under the [GNU General Public Licence v3](https://gnu.org/licenses/gpl-3.0) or later.
+See [LICENSE](./LICENSE) for details.
