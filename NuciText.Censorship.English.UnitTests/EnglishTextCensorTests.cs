@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 
 using NuciText.Censorship.English;
@@ -71,5 +72,9 @@ namespace NuciText.Censorship.English.UnitTests
             => Assert.That(
                 subject.Censor("arse at abercrombie.ac"),
                 Is.EqualTo("**** at ****"));
+
+        [Test]
+        public void GivenNullInput_WhenCensoring_ThenThrowsArgumentNullException()
+            => Assert.Throws<ArgumentNullException>(() => subject.Censor(null!));
     }
 }
