@@ -15,14 +15,16 @@ namespace NuciText.Censorship.English
     {
         private const string CensoredWordReplacement = "****";
 
-        private static readonly Regex BadWordPattern = BuildBadWordPattern();
-        private static readonly Regex UrlPattern = BuildUrlPattern();
+        private static readonly Lazy<Regex> BadWordPattern = new(BuildBadWordPattern, true);
+        private static readonly Lazy<Regex> UrlPattern = new(BuildUrlPattern, true);
 
         /// <inheritdoc/>
         public string Censor(string text)
         {
-            string result = BadWordPattern.Replace(text, CensoredWordReplacement);
-            result = UrlPattern.Replace(result, CensoredWordReplacement);
+            ArgumentNullException.ThrowIfNull(text);
+
+            string result = BadWordPattern.Value.Replace(text, CensoredWordReplacement);
+            result = UrlPattern.Value.Replace(result, CensoredWordReplacement);
 
             return result;
         }
