@@ -13,7 +13,7 @@ namespace NuciText.Censorship.English
     /// </summary>
     public sealed class EnglishTextCensor : ITextCensor
     {
-        private static string CensoredWordReplacement => "****";
+        private const string CensoredWordReplacement = "****";
 
         private static readonly Regex BadWordPattern = BuildBadWordPattern();
         private static readonly Regex UrlPattern = BuildUrlPattern();
@@ -27,6 +27,9 @@ namespace NuciText.Censorship.English
             return result;
         }
 
+        /// <summary>
+        /// Builds the compiled regex pattern for matching bad words at word boundaries.
+        /// </summary>
         private static Regex BuildBadWordPattern()
         {
             IEnumerable<string> badWords = LoadWordList("bad.txt");
@@ -37,6 +40,9 @@ namespace NuciText.Censorship.English
                 RegexOptions.IgnoreCase | RegexOptions.Compiled);
         }
 
+        /// <summary>
+        /// Builds the compiled regex pattern for matching host.tld URLs at word boundaries.
+        /// </summary>
         private static Regex BuildUrlPattern()
         {
             IEnumerable<string> hosts = LoadWordList("hosts.txt");
@@ -50,19 +56,29 @@ namespace NuciText.Censorship.English
                 RegexOptions.IgnoreCase | RegexOptions.Compiled);
         }
 
+        /// <summary>
+        /// Loads a word list from an embedded resource.
+        /// </summary>
+        /// <param name="fileName">The name of the embedded resource file (e.g., "bad.txt").</param>
+        /// <returns>An enumerable of non-empty, trimmed lines from the resource.</returns>
+        /// <exception cref="InvalidOperationException">Thrown when the embedded resource is not found.</exception>
         private static IEnumerable<string> LoadWordList(string fileName)
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
             string resourceName = $"NuciText.Censorship.English.Data.{fileName}";
 
-            using Stream stream = assembly.GetManifestResourceStream(resourceName)!;
-            using StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+            using Stream? stream = assembly.GetManifestResourceStream(resourceName);
+            if (stream is null)
+            {
+                throw new InvalidOperationException($"Embedded resource '{resourceName}' not found.");
+            }
 
+            using StreamReader reader = new StreamReader(stream, Encoding.UTF8);
             string content = reader.ReadToEnd();
 
             return content
-                .Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries)
-                .Where(line => !string.IsNullOrWhiteSpace(line));
+                .Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                .Where(line => line.Length > 0);
         }
     }
 }
